@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/nachmatt/proyectoCoderJs/issues"
   },
-  "homepage": "https://github.com/nachmatt/proyectoCoderJs#readme"
+  "homepage": "https://github.com/nachmatt/proyectoCoderJs#readme",
+  "dependencies": {
+    "bootstrap": "^3.4.1"
+  }
 }

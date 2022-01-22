@@ -271,9 +271,11 @@ $("#buttonGames").click(() => {
               $(".gamesList").prepend(`
               <div>
                 <h3>${element.title}</h3>
-                <p> ${element.steamUrl}</p>
-                <p> ${element.status}</p>
-                <p> ${element.genres}</p>
+                <p> 
+                <span>Link:</span> ${element.steamUrl},
+                <span>Status:</span> ${element.status}, 
+                <span>Genres:</span> ${element.genres}.
+                </p>
               </div>`);
             })              
           }

@@ -1,6 +1,3 @@
-$enable-shadows: true;
-$enable-gradients: true;
-
 //importar scss de titulos 
 @import '_titles.scss';
 //importar bootstrap
@@ -817,11 +814,30 @@ li:hover, header a:hover {
   }
   /* FIN CARRITO */
 
-  .buttonGames{
+  .gamesList {
+    background-color: #efecec;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+    padding: 1rem;
+  }
+
+  .gamesList span {
+    font-weight: bold;
+  }
+
+  .buttonGames {
     min-width: 20%;
     background-color: #010D21;
     color: #efecec;
     cursor: pointer;
     font-size: 1.3rem;
     margin: 1rem auto;
+    padding: .5rem;
+    border: none;
+    border-radius:5px;
   }
+
+  
