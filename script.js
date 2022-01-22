@@ -296,7 +296,7 @@ $("#buttonGames").click(() => {
 //estilizar carrito
 
 /*
-El uso de clases y una función constructora son requisitos para el curso, tene en cuenta eso para futuras entregas. Por otro lado también que los productos se carguen de manera dinámica desde el archivo javascript, en un futuro vas a ver que lo haremos desde un JSON.
+El uso de clases y una función constructora son requisitos para el curso, tene en cuenta eso para futuras entregas.
+Por otro lado también que los productos se carguen de manera dinámica desde el archivo javascript, en un futuro vas a ver que lo haremos desde un JSON.
 El trabajo esta muy bien, solo faltaria cumplir esos dos objetivos para el curso tendiente a tu entrega final! 
-
 */
