@@ -81,14 +81,14 @@ slider.addEventListener("mouseout", () => {
 
 function resetearDiv(elementID)
 {
-    document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML;
+  $(elementID).append() = $(elementID).append();
 }
 //FIN JS SLIDER
 
 //INICIO FUNCIONALIDAD CARTAS
-let popupViews = document.querySelectorAll('.popup-view');
-let popupBtns = document.querySelectorAll('.popup-btn');
-let closeBtns = document.querySelectorAll('.close-btn');
+let popupViews = $('.popup-view').toArray();
+let popupBtns = $('.popup-btn').toArray();
+let closeBtns = $('.close-btn').toArray();
 
 let popup = function(popupClick) {
     popupViews[popupClick].classList.add('active');
@@ -142,7 +142,7 @@ a la variable 'productNumbers' y por ende al carrito.
 function onLoadCartNumbers () {
   let productNumbers = localStorage.getItem('cartNumbers')
   if (productNumbers) {
-    document.querySelector('.cart span').textContent = productNumbers;
+   document.querySelector('.cart span').textContent = productNumbers;
   }
 }
 
@@ -158,10 +158,10 @@ function cartNumbers(products) {
   productNumbers = parseInt(productNumbers)
   if (productNumbers) {
     localStorage.setItem('cartNumbers', productNumbers + 1);
-    document.querySelector('.cart span').textContent = productNumbers + 1;
+    $('.cart span').toArray().textContent = productNumbers + 1;
   } else {
     localStorage.setItem('cartNumbers', 1)
-    document.querySelector('.cart span').textContent = 1
+    $('.cart span').toArray().textContent = 1
   }
   setItems(products)
 }
@@ -214,14 +214,14 @@ function totalCost(products) {
 function displayCart() {
   let cartItems = localStorage.getItem("productsInCart");
   cartItems = JSON.parse(cartItems);
-  let productsContainer = document.querySelector(".products");
+  let productsContainer = $(".products");
   let cartCost = localStorage.getItem('totalCost'); 
   
   if (cartItems && productsContainer) {
     //console.log(cartItems)
-    productsContainer.innerHTML = '';
+    productsContainer.append ('');
     Object.values(cartItems).map(item => {
-      productsContainer.innerHTML += `
+      productsContainer.append ( `
       <div class="item">
         <img src="./assets/close.png" class="remove-item">
         <img src="./assets/${item.tag}.png" class="banner">
@@ -235,15 +235,15 @@ function displayCart() {
       <img src="./assets/right.png" class="icons">
       </div>
       <div class="total">$ ${item.inCart * item.price}</div>
-      `
+      `)
     });
     
-    productsContainer.innerHTML += `
+    productsContainer.append ( `
     <div class="basketTotal">
     <h3>TOTAL</h3>
     <h3>$ ${cartCost}</h3>
     </div>
-    `
+    `)
   }
 }
 
@@ -264,3 +264,9 @@ displayCart();
 //hacer que el cart sea un popup
 //hacer que al comprar un producto no me suba al principio de la web
 //estilizar carrito
+
+/*
+El uso de clases y una función constructora son requisitos para el curso, tene en cuenta eso para futuras entregas. Por otro lado también que los productos se carguen de manera dinámica desde el archivo javascript, en un futuro vas a ver que lo haremos desde un JSON.
+El trabajo esta muy bien, solo faltaria cumplir esos dos objetivos para el curso tendiente a tu entrega final! 
+
+*/
