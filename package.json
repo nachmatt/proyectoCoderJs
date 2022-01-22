@@ -1,0 +1,20 @@
+{
+  "name": "coderjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "products.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nachmatt/proyectoCoderJs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nachmatt/proyectoCoderJs/issues"
+  },
+  "homepage": "https://github.com/nachmatt/proyectoCoderJs#readme"
+}
