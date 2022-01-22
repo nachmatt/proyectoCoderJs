@@ -258,34 +258,6 @@ displayCart();
 //FIN FUNCIONALIDAD CARRITO
 
 
-//INICIO AJAX
-
-//declaro url del get
-const games = "https://static.nvidiagrid.net/supported-public-game-list/gfnpc.json?JSON"
-//agrego botón de get con jQuery
-$(".gamesList").prepend('<button id="buttonGames" class="buttonGames">Ver juegos tendencia</button>');
-//escucho el click del botón 
-$("#buttonGames").click(() => { 
-    $.get(games, function (response, state) {
-          if(state === "success"){
-            let myGames = response;
-            for (const game of myGames) {
-              $("gamesList").prepend(`
-              <div>
-                <h3>${game.title}</h3>
-                <p> ${game.steamUrl}</p>
-                <p> ${game.status}</p>
-                <p> ${game.genres}</p>
-              </div>`);
-            }  
-          }
-    });
-});
-
-//genero una respuesta
-
-//FIN AJAX
-
 
 //cosas a hacer:
 //funcion para borrar elementos del localStorage-Carrito
