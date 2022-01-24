@@ -79,10 +79,6 @@ slider.addEventListener("mouseout", () => {
   repeater();
 });
 
-function resetearDiv(elementID)
-{
-    document.getElementById(elementID).innerHTML = document.getElementById(elementID).innerHTML;
-}
 //FIN JS SLIDER
 
 //INICIO FUNCIONALIDAD CARTAS
@@ -109,8 +105,6 @@ closeBtns.forEach((closeBtn) => {
 });
 
 //FIN FUNCIONALIDAD CARTAS
-
-
 
 //INICIO FUNCIONALIDAD CARRITO
 
@@ -216,39 +210,39 @@ function displayCart() {
   cartItems = JSON.parse(cartItems);
   let productsContainer = document.querySelector(".products");
   let cartCost = localStorage.getItem('totalCost'); 
+
+  function deleteItem() {
+    //al cliquear la imagen 'deleteIcons' se borre el elemento de esa imagen
+  }
   
   if (cartItems && productsContainer) {
     //console.log(cartItems)
     productsContainer.innerHTML = '';
     Object.values(cartItems).map(item => {
-      productsContainer.innerHTML += `
-      <div class="item">
-        <img src="./assets/close.png" class="remove-item">
-        <img src="./assets/${item.tag}.png" class="banner">
-        <span>${item.name}</span>
-      </div>
-      <div class="price">$ ${item.price}</div>
-      
-      <div class="quantity">
-      <img src="./assets/left.png" class="icons">
-      ${item.inCart}
-      <img src="./assets/right.png" class="icons">
-      </div>
-      <div class="total">$ ${item.inCart * item.price}</div>
-      `
+      productsContainer.innerHTML += `      
+        <tr id="cartList">
+          <td><img src="./assets/close.png" class="remove-item" onclick="removeItem()"></td>
+          <td> <img src="./assets/${item.tag}.png" class="banner"></td>
+          <td class="product-name">${item.name}  </td>
+          <td class="product-price"> $ ${item.price}  </td>
+          <td class="product-quantity"><img src="./assets/left.png" class="icons" onclick="${substractItem}"> ${item.inCart} <img src="./assets/right.png" class="icons" onclick="${addItem}"></td>
+          <td class="product-total">$ ${item.inCart * item.price}</td>
+        </tr>`
+      function addItem() {
+        item.inCart += 1
+      } 
+      function substractItem() {
+        item.inCart -= 1
+      }
     });
     
     productsContainer.innerHTML += `
-    <div class="basketTotal">
-    <h3>TOTAL</h3>
-    <h3>$ ${cartCost}</h3>
+    <div class="cart-total">
+    <h3>TOTAL: $</h3>
+    <h3>  ${cartCost}</h3>
     </div>
     `
   }
-}
-
-function deleteItems() {
-  //al cliquear la imagen 'deleteIcons' se borre el elemento de esa imagen
 }
 
 
@@ -256,11 +250,78 @@ onLoadCartNumbers();
 displayCart();
 //FIN FUNCIONALIDAD CARRITO
 
+//INICIO AJAX
+
+//declaro url del get
+const games = "https://static.nvidiagrid.net/supported-public-game-list/gfnpc.json?JSON"
+//agrego botón de get con jQuery
+$("section.games-list").prepend('<button id="button-games" class="button-games">Ver juegos tendencia</button>');
+//escucho el click del botón 
+$("#button-games").click(() => { 
+    $.get(games, function (response, state) {
+          if(state === "success"){
+            let myGames = response;
+            myGames.slice(0, 5).forEach(element => {
+              $(".games-list").prepend(`
+              <div class="fadeIn">
+                <h3>${element.title}</h3>
+                <p> 
+                <span>Link:</span> <a href="${element.steamUrl}">${element.steamUrl}</a>,
+                <span>Status:</span> ${element.status}, 
+                <span>Genres:</span> ${element.genres}.
+                </p>
+              </div>`).hide().slideDown('slow');
+            })             
+          }
+    });
+})
+
+//INICIO FUNCIONALIDAD MAS-COMPRADOS//
+import trendingItems from './masComprados.js';
+const masComprados = trendingItems;
+
+class masComprado {
+  constructor (name, img, stock) {
+    this.name = name
+    this.img = img
+    this.stock = stock;
+  }
+}
+
+const trendItem1 = new masComprado(masComprados[0].name, masComprados[0].img, masComprados[0].stock)
+const trendItem2 = new masComprado(masComprados[1].name, masComprados[1].img, masComprados[1].stock)
+const trendItem3 = new masComprado(masComprados[2].name, masComprados[2].img, masComprados[2].stock)
+
+$('.mas-comprados').prepend(`
+<div class="trendDiv">
+  <a href="#trendItem1">
+    <h2 class="trendName">${trendItem1.name}</h2>
+    <img src="${trendItem1.img}" class="trendImage"></img>
+    <span class="trendStock">Stock: ${trendItem1.stock}</span>
+  </a>
+</div>
+
+<div class="trendDiv">
+  <a href="#trendItem2">
+    <h2 class="trendName">${trendItem2.name}</h2>
+    <img src="${trendItem2.img}" class="trendImage"></img>
+    <span class="trendStock">Stock: ${trendItem2.stock}</span>  
+  </a>
+</div>
+
+<div class="trendDiv">
+  <a href="#trendItem3">
+    <h2 class="trendName">${trendItem3.name}</h2>
+    <img src="${trendItem3.img}" class="trendImage"></img>
+    <span class="trendStock">Stock: ${trendItem3.stock}</span>
+  </a>
+</div>
+`)
+//FIN FUNCIONALIDAD MAS-COMPRADOS//
+
 //cosas a hacer:
-//funcion para borrar elementos del localStorage-Carrito
+//que hide() y slideDown() afecten solo a la lista y no a todo el div.
+//funcion para borrar elementos del localStorage - Carrito
 //función para aumentar y disminuir la cantidad de elementos del carrito desde flechitas
 //arreglar en el index.html el hamburger menu no vuelve
-//arreglar en el cart.html el hamburger menu no funca
-//hacer que el cart sea un popup
-//hacer que al comprar un producto no me suba al principio de la web
 //estilizar carrito

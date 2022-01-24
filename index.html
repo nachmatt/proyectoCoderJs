@@ -38,7 +38,7 @@
     <!-- INICIO DE "INICIO" -->
     <main id="inicio" class="inicio container-fluid"> 
         <div class="slide-right row">
-            <h1 class="mario container-fluid" onclick="resetearDiv('inicio')">Armá la PC que siempre soñaste!</h1>
+            <h1 class="mario container-fluid"><a href="#productos" class="firstLinkToProduct">Armá la PC que siempre soñaste!</a></h1>
         </div>
         <div class="slider">
             <div class="slide active">
@@ -91,14 +91,23 @@
     </main>
     <!-- FINAL DE "INICIO"" -->
 
-    <!-- INICIO DE PRODUCTOS -->
-    <div class="titulos container"><h2>Productos</h2></div> 
+    
 
-    <section id="productos" class="productos container-fluid col-10"> 
+    <!-- INICIO DE PRODUCTOS -->
+    <div class="titulos container" id="productos"><h2>Productos</h2></div> 
+
+    <!-- INICIO DE MAS-COMPRADOS -->
+    <div class="subtitulos container"><h4>¡Los Más Comprados!</h4></div> 
+    <div class="mas-comprados">
+
+    </div>
+    <!-- FIN DE MAS-COMPRADOS -->
+
+    <section class="productos container-fluid col-10"> 
         
       <div class="row product col-12" id="row1">
 
-            <div class="producto-card col-12 col-lg-3 m-2 p-3">
+            <div class="producto-card col-12 col-lg-3 m-2 p-3" id="trendItem1">
               <img src="./assets/ssd.png" alt="PRODUCTO 1">
               <h2 class="col-12">Aorus NVME SSD 1TB </h2>
               <h3>$180.00</h3>
@@ -115,7 +124,7 @@
                       <h2>Aorus NVME 1TB <br> <span>SSD's</span> </h2>
                       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ut autem.</p>
                       <span class="price">$180.00</span>
-                      <a class="add-cart-btn" href="#">Añadir al Carrito</a>
+                      <a class="add-cart-btn" href="#cartList">Añadir al Carrito</a>
                   </div>
               </div>
             </div>
@@ -137,7 +146,7 @@
                       <h2>ToughRAM 32GB <br> <span>RAM's</span> </h2>
                       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ut autem.</p>
                       <span class="price">$120.00</span>
-                      <a href="#" class="add-cart-btn">Añadir al Carrito</a>
+                      <a href="#cartList" class="add-cart-btn">Añadir al Carrito</a>
                   </div>
               </div>
             </div>
@@ -159,7 +168,7 @@
                       <h2>Ryzen 5600X <br> <span>CPU's</span> </h2>
                       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ut autem.</p>
                       <span class="price">$230.00</span>
-                      <a href="#" class="add-cart-btn">Añadir al Carrito</a>
+                      <a href="#cartList" class="add-cart-btn">Añadir al Carrito</a>
                   </div>
               </div>
             </div>
@@ -168,7 +177,7 @@
 
       <div class="row product col-12" id="row2">
 
-          <div class="producto-card col-12 col-lg-3 m-2 p-3">
+          <div class="producto-card col-12 col-lg-3 m-2 p-3" id="trendItem2">
             <img src="./assets/gpu.png" alt="PRODUCTO 4">
             <h2 class="col-12">Nvidia Geforce RTX 3080</h2>
             <h3>$480.00</h3>
@@ -185,12 +194,12 @@
                     <h2>GPU RTX 3080 <br> <span>GPU's</span> </h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ut autem.</p>
                     <span class="price">$480.00</span>
-                    <a href="#" class="add-cart-btn">Añadir al Carrito</a>
+                    <a href="#cartList" class="add-cart-btn">Añadir al Carrito</a>
                 </div>
             </div>
           </div>
 
-          <div class="producto-card col-12 col-lg-3 m-2 p-3">
+          <div class="producto-card col-12 col-lg-3 m-2 p-3" id="trendItem3">
             <img src="./assets/cooler.png" alt="PRODUCTO 5">
             <h2 class="col-12">NZXT KRAKEN X63 AIO</h2>
             <h3>$155.00</h3>
@@ -207,7 +216,7 @@
                     <h2>NZXT X63 AIO<br> <span>Cooler's</span> </h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ut autem.</p>
                     <span class="price">$155.00</span>
-                    <a href="#" class="add-cart-btn">Añadir al Carrito</a>
+                    <a href="#cartList" class="add-cart-btn">Añadir al Carrito</a>
                 </div>
             </div>
           </div>
@@ -229,7 +238,7 @@
                     <h2>NZXT H510 Elite <br> <span>Case's</span> </h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ut autem.</p>
                     <span class="price">$150.00</span>
-                    <a href="#" class="add-cart-btn">Añadir al Carrito</a>
+                    <a href="#cartList" class="add-cart-btn">Añadir al Carrito</a>
                 </div>
             </div>
           </div>
@@ -255,7 +264,7 @@
                   <h2>Gigabyte B550 <br> <span>Motherboard's</span> </h2>
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ut autem.</p>
                   <span class="price">$240.00</span>
-                  <a href="#" class="add-cart-btn">Añadir al Carrito</a>
+                  <a href="#cartList" class="add-cart-btn">Añadir al Carrito</a>
               </div>
           </div>
         </div>
@@ -277,7 +286,7 @@
                   <h2>Thermaltake RGB <br> <span>Keyboard's</span> </h2>
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ut autem.</p>
                   <span class="price">$80.00</span>
-                  <a href="#" class="add-cart-btn">Añadir al Carrito</a>
+                  <a href="#cartList" class="add-cart-btn">Añadir al Carrito</a>
               </div>
           </div>
         </div>
@@ -299,7 +308,7 @@
                   <h2>Gaming RGB Desk <br> <span>Desk's</span> </h2>
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita ut autem.</p>
                   <span class="price">$260.00</span>
-                  <a href="#" class="add-cart-btn">Añadir al Carrito</a>
+                  <a href="#cartList" class="add-cart-btn">Añadir al Carrito</a>
               </div>
           </div>
         </div>
@@ -317,21 +326,22 @@
       </a>
     </li>
     <div id="cart" class="products-container">
+      <h1>Carrito</h1>
       <div class="products-header">
           <h3 class="products-title">Producto</h3>
           <h3 class="products-price">Precio</h3>
-          <h3 class="products-quantity">Cantidad</h3>
+          <h3 class="products-quantity">Cantidad </h3>
           <h3 class="products-total">Total</h3>
       </div>
-      <div class="products">
+      <table class="products">
           
-      </div>
+      </table>
   </div>
     <!-- FIN DE CARRITO-->
 
     <!-- INICIO DE SERVICIOS -->
-    <div class="titulos"><h2>Servicios</h2></div> 
-    <section id="servicios" class="servicios container-fluid row"> 
+    <div class="titulos" id="servicios"><h2>Servicios</h2></div> 
+    <section class="servicios container-fluid row"> 
         <!-- showcase de servicios con enlaces a los mismos -->
         <div class="col-12 col-lg-6 p-4"><img src="./assets/servicios1.jpg" alt="banner"><p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" target="blank">Reparación PC y Laptops.</a></p></div>
         <div class="col-12 col-lg-6 p-4"><img src="./assets/servicios2.jpg" alt="banner"><p><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" target="blank">Armado de PC's</a></p></div>
@@ -341,8 +351,8 @@
 
     
     <!-- INICIO DE NOSOTROS-->
-    <div class="titulos"><h2>Nosotros</h2></div> 
-    <section id="nosotros" class="nosotros container row"> 
+    <div class="titulos" id="nosotros"><h2>Nosotros</h2></div> 
+    <section class="nosotros container row"> 
 
         <!-- showcase de Integrantes / tres cards con 3 integrantes ficticios -->
         <div class="col-12 col-lg-4 p-3"><img src="./assets/profile1.jpg" alt="integrante1"><h2>Butter</h2><p>Stock de artículos, snacks de mediatarde y RRPP.</p></div>
@@ -375,6 +385,12 @@
     </section>
     <!-- FIN DE CONTACTO-->
 
+    <!-- INICIO DE AJAX-->
+    <section class="games-list">
+      
+    </section>
+    <!-- FIN DE AJAX-->
+
     <!-- INICIO Cuby
     <div class="container-fluid cuby">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d476256.6982198559!2d-158.12395344350543!3d21.331714571289535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c006632db726b03%3A0xd9587d69906fcbc3!2zT-KAmGFodQ!5e0!3m2!1ses-419!2suy!4v1632838702883!5m2!1ses-419!2suy"  height="450" style="border:0;" allowfullscreen="" loading="lazy" class="col-6 col-md-5 col-lg-4 mx-1"></iframe>
@@ -399,6 +415,10 @@
     <!-- FIN LINK A SCRIPT Y JS FUNCIONAL DE BOOTSTRAP-->
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
+
+        <!-- JQUERY CDN-->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <!-- JQUERY CDN-->
 
   </body>
 </html>
