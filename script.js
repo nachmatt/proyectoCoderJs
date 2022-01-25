@@ -257,7 +257,8 @@ const games = "https://static.nvidiagrid.net/supported-public-game-list/gfnpc.js
 //agrego botón de get con jQuery
 $("section.games-list").prepend('<button id="button-games" class="button-games">Ver juegos tendencia</button>');
 //escucho el click del botón 
-$("#button-games").click(() => { 
+
+$("#button-games").one('click', () => { 
     $.get(games, function (response, state) {
           if(state === "success"){
             let myGames = response;
@@ -271,7 +272,7 @@ $("#button-games").click(() => {
                 <span>Genres:</span> ${element.genres}.
                 </p>
               </div>`).hide().slideDown('slow');
-            })             
+            }) 
           }
     });
 })
