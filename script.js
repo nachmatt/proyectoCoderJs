@@ -208,43 +208,73 @@ function totalCost(products) {
 function displayCart() {
   let cartItems = localStorage.getItem("productsInCart");
   cartItems = JSON.parse(cartItems);
-  let productsContainer = document.querySelector(".products");
-  let cartCost = localStorage.getItem('totalCost'); 
 
-  function deleteItem() {
-    //al cliquear la imagen 'deleteIcons' se borre el elemento de esa imagen
-  }
+  let cart = localStorage.getItem('totalCost'); 
+  cart = parseInt(cart)
+
+  let productsContainer = document.querySelector(".products");
   
+
   if (cartItems && productsContainer) {
-    //console.log(cartItems)
     productsContainer.innerHTML = '';
     Object.values(cartItems).map(item => {
-      productsContainer.innerHTML += `      
-        <tr id="cartList">
-          <td><img src="./assets/close.png" class="remove-item" onclick="removeItem()"></td>
-          <td> <img src="./assets/${item.tag}.png" class="banner"></td>
-          <td class="product-name">${item.name}  </td>
-          <td class="product-price"> $ ${item.price}  </td>
-          <td class="product-quantity"><img src="./assets/left.png" class="icons" onclick="${substractItem}"> ${item.inCart} <img src="./assets/right.png" class="icons" onclick="${addItem}"></td>
-          <td class="product-total">$ ${item.inCart * item.price}</td>
-        </tr>`
-      function addItem() {
-        item.inCart += 1
-      } 
-      function substractItem() {
-        item.inCart -= 1
-      }
-    });
+      productsContainer.innerHTML += ` 
+        <div class="cartList"><img src="./assets/close.png" class="remove-item"><img src="./assets/${item.tag}.png" class="banner">
+          <span class="product-name">${item.name} </span>
+        </div>
+        <div class="product-price>$${item.price},00</div>
+        <div class="product-quantity">
+            <img src="./assets/left.png" class="icons">
+            <span>${item.inCart}</span>
+            <img src="./assets/right.png" class="icons" id=${item.id}>
+        </div>
+        <div class="product-total">$${item.inCart * item.price},00</div>`}
+    );
+    
     
     productsContainer.innerHTML += `
     <div class="cart-total">
     <h3>TOTAL: $</h3>
-    <h3>  ${cartCost}</h3>
+    <h3>  ${cart}</h3>
     </div>
-    `
+    `;
+
+    deleteButtons()
   }
+ 
 }
 
+// asigno los botones con el ícono 'x' y los loopeo.
+//por cada uno de ellos genero un click eventlistener que seleccione al textcontent de su elemento padre
+// lo trimeo y transformo a minúscula, y reemplazo con regex cada espacio por un espacio vacío.
+//así obtengo el nombre en minúscula y sin espacios del elemento que quiero borrar que coincide con el tag..
+//accedo a la cantidad de items por artículo con el nombre del producto y su cantidad inCart y se la resto a la cantidad de productos total
+//accedo al costo de los items a borrar y se los resto al costo total
+//borro del localStorage los items a borrar y actualizo el carrito a la variable de items en el carrito actualizada
+//corro las funciones de carga y renderización del carrito
+function deleteButtons() {
+    let deleteButtons = document.querySelectorAll('.remove-item');
+    let productNumbers = localStorage.getItem('cartNumbers');
+    let cartCost = localStorage.getItem("totalCost");
+    let cartItems = localStorage.getItem('productsInCart');
+    cartItems = JSON.parse(cartItems);
+    let productName;
+
+    for(let i=0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', () => {
+            productName = deleteButtons[i].parentElement.textContent.toLocaleLowerCase().replace(/ /g,'').trim();
+           
+            localStorage.setItem('cartNumbers', productNumbers - cartItems[productName].inCart);
+            localStorage.setItem('totalCost', cartCost - ( cartItems[productName].price * cartItems[productName].inCart));
+
+            delete cartItems[productName];
+            localStorage.setItem('productsInCart', JSON.stringify(cartItems));
+
+            displayCart();
+            onLoadCartNumbers();
+        })
+    }
+}
 
 onLoadCartNumbers();
 displayCart();
