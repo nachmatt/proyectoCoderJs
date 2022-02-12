@@ -147,16 +147,24 @@ Si hay un valor asignado a 'productNumbers' entonces le suma un 1,
 y si no lo hay, entonces le asigna el valor 1.
 tanto en carrito como en localstorage de carrito.
 */
-function cartNumbers(products) {
+function cartNumbers(products, action) {
   let productNumbers = localStorage.getItem('cartNumbers');
   productNumbers = parseInt(productNumbers)
-  if (productNumbers) {
+
+  let cartItems = localStorage.getItem('productsInCart');
+  cartItems = JSON.parse(cartItems);
+
+  if (action == 'decrease') {
+    localStorage.setItem('cartNumbers', productNumbers - 1)
+    document.querySelector('.cart span').textContent = productNumbers - 1
+  } else if ( productNumbers ) {
     localStorage.setItem('cartNumbers', productNumbers + 1);
-    document.querySelector('.cart span').textContent = productNumbers + 1;
+    document.querySelector('.cart span').textContent = productNumbers + 1
   } else {
     localStorage.setItem('cartNumbers', 1)
     document.querySelector('.cart span').textContent = 1
   }
+
   setItems(products)
 }
 
@@ -194,10 +202,13 @@ function setItems(products) {
 // luego chequea, si el 'cartCost' es diferente a null
 // parsea el valor previo y asigna a 'totalcost' el valor de cartcost + el precio del producto
 //si 'cartCost' es null, le asigna a 'totalCost' el precio del producto
-function totalCost(products) {
+function totalCost(products, action) {
   let cartCost = localStorage.getItem('totalCost'); 
 
-  if(cartCost != null) {
+  if (action == 'decrease') {
+    cartCost = parseInt(cartCost)
+    localStorage.setItem('totalCost', cartCost - products.price);
+  } else if(cartCost != null) {
     cartCost = parseInt(cartCost);
     localStorage.setItem('totalCost', cartCost + products.price)
   } else {
@@ -222,11 +233,13 @@ function displayCart() {
         <div class="cartList"><img src="./assets/close.png" class="remove-item"><img src="./assets/${item.tag}.png" class="banner">
           <span class="product-name">${item.name} </span>
         </div>
-        <div class="product-price>$${item.price},00</div>
+        <div class="product-price"> 
+          $ ${item.price},00 
+        </div>
         <div class="product-quantity">
-            <img src="./assets/left.png" class="icons">
+            <img src="./assets/left.png" class="icons decrease">
             <span>${item.inCart}</span>
-            <img src="./assets/right.png" class="icons" id=${item.id}>
+            <img src="./assets/right.png" class="icons increase" id=${item.id}>
         </div>
         <div class="product-total">$${item.inCart * item.price},00</div>`}
     );
@@ -239,13 +252,13 @@ function displayCart() {
     </div>
     `;
 
-    deleteButtons()
   }
- 
+    deleteButtons();
+    changeQuantity();
 }
 
 // asigno los botones con el ícono 'x' y los loopeo.
-//por cada uno de ellos genero un click eventlistener que seleccione al textcontent de su elemento padre
+//por cada uno de ellos genero un click eventlistener que seleccione al textcontent de su elemento padre (donde se encuentra el name)
 // lo trimeo y transformo a minúscula, y reemplazo con regex cada espacio por un espacio vacío.
 //así obtengo el nombre en minúscula y sin espacios del elemento que quiero borrar que coincide con el tag..
 //accedo a la cantidad de items por artículo con el nombre del producto y su cantidad inCart y se la resto a la cantidad de productos total
@@ -276,8 +289,60 @@ function deleteButtons() {
     }
 }
 
+//asigno a variables los botones de izquierda y derecha para sumar y restar elementos.
+//asigno a variable la cantidad actual de un elemento inicializandola a 0
+//loopeo cada uno de esos botones y reasigno a la variable de cantidad, la cantidad del span del elemento padre del ícono.
+//asigno a variable la el texto del span del hermano anterior al hermano anterior del elemento padre del ícono
+//lo transformo a lowercase y reemplazo con regex los espacios con espacios vacíos
+
+function changeQuantity () {
+  let decreaseButtons = document.querySelectorAll('.decrease');
+  let increaseButtons = document.querySelectorAll('.increase');
+
+  let cartItems = localStorage.getItem('productsInCart');
+  cartItems = JSON.parse(cartItems) 
+
+  let currentQuantity = 0;
+  let currentProduct = '';
+
+  //accedo a la cantidad de productos inCart del elemento y le resto 1 siempre que sea mayor a 1, 
+  //llamo a las funciones que actualizan también el carrito y al costo total.
+  //luego rerenderizo el carrito
+
+  for (let i = 0; i < decreaseButtons.length; i++) {
+    decreaseButtons[i].addEventListener('click', () => {
+      currentQuantity = decreaseButtons[i].parentElement.querySelector('span').textContent;
+      currentProduct = decreaseButtons[i].parentElement.previousElementSibling.previousElementSibling.querySelector('span').textContent.toLowerCase().replace(/ /g, '').trim();
+
+      if (cartItems[currentProduct].inCart > 1) {
+        cartItems[currentProduct].inCart = cartItems[currentProduct].inCart - 1
+        cartNumbers(cartItems[currentProduct], 'decrease')
+        totalCost(cartItems[currentProduct], 'decrease')
+        localStorage.setItem('productsInCart', JSON.stringify(cartItems))
+        displayCart()
+      }
+    });
+  }
+
+  //lo mismo que el decrease pero incrementando
+  for (let i = 0; i < increaseButtons.length; i++) {
+    increaseButtons[i].addEventListener('click', () => {
+      currentQuantity = increaseButtons[i].parentElement.querySelector('span').textContent;
+      currentProduct = increaseButtons[i].parentElement.previousElementSibling.previousElementSibling.querySelector('span').textContent.toLocaleLowerCase().replace(/ /g,'').trim();
+
+      cartItems[currentProduct].inCart += 1;
+      cartNumbers(cartItems[currentProduct]);
+      totalCost(cartItems[currentProduct]);
+      localStorage.setItem('productsInCart', JSON.stringify(cartItems));
+      displayCart();
+    })
+  }
+
+}
+
 onLoadCartNumbers();
 displayCart();
+
 //FIN FUNCIONALIDAD CARRITO
 
 //INICIO AJAX
@@ -350,9 +415,3 @@ $('.mas-comprados').prepend(`
 `)
 //FIN FUNCIONALIDAD MAS-COMPRADOS//
 
-//cosas a hacer:
-//que hide() y slideDown() afecten solo a la lista y no a todo el div.
-//funcion para borrar elementos del localStorage - Carrito
-//función para aumentar y disminuir la cantidad de elementos del carrito desde flechitas
-//arreglar en el index.html el hamburger menu no vuelve
-//estilizar carrito
